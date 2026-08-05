@@ -7,8 +7,8 @@
     "total": 0.525,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 178329,
-    "toman_price_text": "۱۷۸٬۳۲۹ تومان"
+    "toman_price": 178299,
+    "toman_price_text": "۱۷۸٬۲۹۹ تومان"
   },
   {
     "product_type": "stars",
@@ -18,8 +18,8 @@
     "total": 0.75,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 237612,
-    "toman_price_text": "۲۳۷٬۶۱۲ تومان"
+    "toman_price": 237570,
+    "toman_price_text": "۲۳۷٬۵۷۰ تومان"
   },
   {
     "product_type": "stars",
@@ -29,8 +29,8 @@
     "total": 1.05,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 316657,
-    "toman_price_text": "۳۱۶٬۶۵۷ تومان"
+    "toman_price": 316597,
+    "toman_price_text": "۳۱۶٬۵۹۷ تومان"
   },
   {
     "product_type": "stars",
@@ -40,8 +40,8 @@
     "total": 1.5,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 435225,
-    "toman_price_text": "۴۳۵٬۲۲۵ تومان"
+    "toman_price": 435139,
+    "toman_price_text": "۴۳۵٬۱۳۹ تومان"
   },
   {
     "product_type": "stars",
@@ -51,8 +51,8 @@
     "total": 5.25,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 1423286,
-    "toman_price_text": "۱٬۴۲۳٬۲۸۶ تومان"
+    "toman_price": 1422987,
+    "toman_price_text": "۱٬۴۲۲٬۹۸۷ تومان"
   },
   {
     "product_type": "stars",
@@ -62,8 +62,8 @@
     "total": 7.5,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 2016123,
-    "toman_price_text": "۲٬۰۱۶٬۱۲۳ تومان"
+    "toman_price": 2015695,
+    "toman_price_text": "۲٬۰۱۵٬۶۹۵ تومان"
   },
   {
     "product_type": "stars",
@@ -73,8 +73,8 @@
     "total": 10.5,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 2806572,
-    "toman_price_text": "۲٬۸۰۶٬۵۷۲ تومان"
+    "toman_price": 2805973,
+    "toman_price_text": "۲٬۸۰۵٬۹۷۳ تومان"
   },
   {
     "product_type": "stars",
@@ -84,8 +84,8 @@
     "total": 15,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 3992245,
-    "toman_price_text": "۳٬۹۹۲٬۲۴۵ تومان"
+    "toman_price": 3991390,
+    "toman_price_text": "۳٬۹۹۱٬۳۹۰ تومان"
   },
   {
     "product_type": "premium",
@@ -95,8 +95,8 @@
     "total": 10.5,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 2806572,
-    "toman_price_text": "۲٬۸۰۶٬۵۷۲ تومان"
+    "toman_price": 2805973,
+    "toman_price_text": "۲٬۸۰۵٬۹۷۳ تومان"
   },
   {
     "product_type": "premium",
@@ -106,8 +106,8 @@
     "total": 15,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 3992245,
-    "toman_price_text": "۳٬۹۹۲٬۲۴۵ تومان"
+    "toman_price": 3991390,
+    "toman_price_text": "۳٬۹۹۱٬۳۹۰ تومان"
   },
   {
     "product_type": "premium",
@@ -117,8 +117,8 @@
     "total": 19.6,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 5204267,
-    "toman_price_text": "۵٬۲۰۴٬۲۶۷ تومان"
+    "toman_price": 5203150,
+    "toman_price_text": "۵٬۲۰۳٬۱۵۰ تومان"
   },
   {
     "product_type": "premium",
@@ -128,8 +128,8 @@
     "total": 28,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 7417524,
-    "toman_price_text": "۷٬۴۱۷٬۵۲۴ تومان"
+    "toman_price": 7415928,
+    "toman_price_text": "۷٬۴۱۵٬۹۲۸ تومان"
   },
   {
     "product_type": "premium",
@@ -139,8 +139,8 @@
     "total": 35,
     "currency": "TON",
     "payment_method": "ton",
-    "toman_price": 9261905,
-    "toman_price_text": "۹٬۲۶۱٬۹۰۵ تومان"
+    "toman_price": 9259910,
+    "toman_price_text": "۹٬۲۵۹٬۹۱۰ تومان"
   },
   {
     "product_type": "premium",
@@ -150,7 +150,7 @@
     "total": 50,
     "currency": "USDT",
     "payment_method": "usdt_ton",
-    "toman_price": 13214150,
-    "toman_price_text": "۱۳٬۲۱۴٬۱۵۰ تومان"
+    "toman_price": 13211300,
+    "toman_price_text": "۱۳٬۲۱۱٬۳۰۰ تومان"
   }
 ]
