@@ -11,10 +11,34 @@ if (!tonPrice) {
 
 const data = JSON.parse(fs.readFileSync(pricesFile, "utf8"));
 
-const profit = 40000;
-
 const converted = data.map(item => {
-  const tomanPrice = Math.round((item.total * tonPrice) + profit);
+
+  let profit = 40000;
+
+  // استارز همیشه 40 هزار تومان سود
+  if (item.product_type === "stars") {
+    profit = 40000;
+  }
+
+  // پریمیوم
+  if (item.product_type === "premium") {
+
+    // اگر محصول چهار بوست باشد
+    if (
+      item.item_name.toLowerCase().includes("4") ||
+      item.item_name.toLowerCase().includes("four")
+    ) {
+      profit = 150000;
+    } 
+    // تک بوست
+    else {
+      profit = 40000;
+    }
+  }
+
+  const tomanPrice = Math.round(
+    (item.total * tonPrice) + profit
+  );
 
   return {
     ...item,
