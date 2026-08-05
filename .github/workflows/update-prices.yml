@@ -34,7 +34,7 @@ jobs:
             let json=JSON.parse(data);
 
             let market=json.results.find(
-              x => x.currency1.code === 'TON' && x.currency2.code === 'IRT'
+              x => x.code === 'TON_IRT'
             );
 
             if(!market){
