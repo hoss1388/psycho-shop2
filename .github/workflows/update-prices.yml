@@ -18,20 +18,26 @@ jobs:
           API_KEY: ${{ secrets.FRAGMENT_API_KEY }}
         run: |
           mkdir -p api
+
           curl -H "X-API-Key: $API_KEY" \
           https://api.fragment-api.io/api/prices/list \
           -o api/prices.json
 
-      - name: Get TON price from Nobitex
+      - name: Get TON price from Bitpin
         run: |
-          RESPONSE=$(curl -s "https://api.nobitex.ir/market/stats?srcCurrency=ton&dstCurrency=rls")
+          RESPONSE=$(curl -L -s "https://api.bitpin.ir/v1/mkt/markets/")
 
-          TON_PRICE=$(echo $RESPONSE | node -e "
+          echo "$RESPONSE"
+
+          TON_PRICE=$(echo "$RESPONSE" | node -e "
           let data='';
           process.stdin.on('data',c=>data+=c);
           process.stdin.on('end',()=>{
             let json=JSON.parse(data);
-            console.log(json.stats.ton_rls.lastTrade);
+            let market=json.results.find(
+              x => x.code === 'TON_IRT'
+            );
+            console.log(market.price);
           });
           ")
 
