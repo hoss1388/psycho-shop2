@@ -27,16 +27,21 @@ jobs:
         run: |
           RESPONSE=$(curl -L -s "https://api.bitpin.ir/v1/mkt/markets/")
 
-          echo "$RESPONSE"
-
           TON_PRICE=$(echo "$RESPONSE" | node -e "
           let data='';
           process.stdin.on('data',c=>data+=c);
           process.stdin.on('end',()=>{
             let json=JSON.parse(data);
+
             let market=json.results.find(
-              x => x.code === 'TON_IRT'
+              x => x.currency1.code === 'TON' && x.currency2.code === 'IRT'
             );
+
+            if(!market){
+              console.error('TON market not found');
+              process.exit(1);
+            }
+
             console.log(market.price);
           });
           ")
