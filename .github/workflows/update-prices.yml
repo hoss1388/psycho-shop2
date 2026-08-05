@@ -18,12 +18,11 @@ jobs:
           API_KEY: ${{ secrets.FRAGMENT_API_KEY }}
         run: |
           mkdir -p api
-
           curl -H "X-API-Key: $API_KEY" \
           https://api.fragment-api.io/api/prices/list \
           -o api/prices.json
 
-           - name: Get TON price from Nobitex
+      - name: Get TON price from Nobitex
         run: |
           RESPONSE=$(curl -s "https://api.nobitex.ir/market/stats?srcCurrency=ton&dstCurrency=rls")
 
@@ -37,6 +36,7 @@ jobs:
           ")
 
           echo "TON_PRICE=$TON_PRICE" >> $GITHUB_ENV
+
       - name: Convert prices to Toman
         run: |
           node scripts/convert-prices.js
