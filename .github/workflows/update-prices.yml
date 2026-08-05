@@ -23,34 +23,11 @@ jobs:
           https://api.fragment-api.io/api/prices/list \
           -o api/prices.json
 
-      - name: Get TON price from Bitpin
+      - name: Test Bitpin TON search
         run: |
           RESPONSE=$(curl -L -s "https://api.bitpin.ir/v1/mkt/markets/")
 
-          TON_PRICE=$(echo "$RESPONSE" | node -e "
-          let data='';
-          process.stdin.on('data',c=>data+=c);
-          process.stdin.on('end',()=>{
-            let json=JSON.parse(data);
-
-            let market=json.results.find(
-              x => x.code === 'TON_IRT'
-            );
-
-            if(!market){
-              console.error('TON market not found');
-              process.exit(1);
-            }
-
-            console.log(market.price);
-          });
-          ")
-
-          echo "TON_PRICE=$TON_PRICE" >> $GITHUB_ENV
-
-      - name: Convert prices to Toman
-        run: |
-          node scripts/convert-prices.js
+          echo "$RESPONSE" | grep -i "TON"
 
       - name: Commit updated prices
         run: |
