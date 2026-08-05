@@ -1,156 +1,18 @@
-[
-  {
-    "product_type": "stars",
-    "item_name": "50 Telegram Stars",
-    "price": 0.525,
-    "gas_fee": 0,
-    "total": 0.525,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 178299,
-    "toman_price_text": "۱۷۸٬۲۹۹ تومان"
+{
+  "tonToToman": 263107,
+  "stars": {
+    "tonPerStar": 0.0105
   },
-  {
-    "product_type": "stars",
-    "item_name": "50 Telegram Stars",
-    "price": 0.75,
-    "gas_fee": 0,
-    "total": 0.75,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 237570,
-    "toman_price_text": "۲۳۷٬۵۷۰ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "100 Telegram Stars",
-    "price": 1.05,
-    "gas_fee": 0,
-    "total": 1.05,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 316597,
-    "toman_price_text": "۳۱۶٬۵۹۷ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "100 Telegram Stars",
-    "price": 1.5,
-    "gas_fee": 0,
-    "total": 1.5,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 435139,
-    "toman_price_text": "۴۳۵٬۱۳۹ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "500 Telegram Stars",
-    "price": 5.25,
-    "gas_fee": 0,
-    "total": 5.25,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 1422987,
-    "toman_price_text": "۱٬۴۲۲٬۹۸۷ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "500 Telegram Stars",
-    "price": 7.5,
-    "gas_fee": 0,
-    "total": 7.5,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 2015695,
-    "toman_price_text": "۲٬۰۱۵٬۶۹۵ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "1000 Telegram Stars",
-    "price": 10.5,
-    "gas_fee": 0,
-    "total": 10.5,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 2805973,
-    "toman_price_text": "۲٬۸۰۵٬۹۷۳ تومان"
-  },
-  {
-    "product_type": "stars",
-    "item_name": "1000 Telegram Stars",
-    "price": 15,
-    "gas_fee": 0,
-    "total": 15,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 3991390,
-    "toman_price_text": "۳٬۹۹۱٬۳۹۰ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "3 months Telegram Premium",
-    "price": 10.5,
-    "gas_fee": 0,
-    "total": 10.5,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 2805973,
-    "toman_price_text": "۲٬۸۰۵٬۹۷۳ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "3 months Telegram Premium",
-    "price": 15,
-    "gas_fee": 0,
-    "total": 15,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 3991390,
-    "toman_price_text": "۳٬۹۹۱٬۳۹۰ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "6 months Telegram Premium",
-    "price": 19.6,
-    "gas_fee": 0,
-    "total": 19.6,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 5203150,
-    "toman_price_text": "۵٬۲۰۳٬۱۵۰ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "6 months Telegram Premium",
-    "price": 28,
-    "gas_fee": 0,
-    "total": 28,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 7415928,
-    "toman_price_text": "۷٬۴۱۵٬۹۲۸ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "12 months Telegram Premium",
-    "price": 35,
-    "gas_fee": 0,
-    "total": 35,
-    "currency": "TON",
-    "payment_method": "ton",
-    "toman_price": 9259910,
-    "toman_price_text": "۹٬۲۵۹٬۹۱۰ تومان"
-  },
-  {
-    "product_type": "premium",
-    "item_name": "12 months Telegram Premium",
-    "price": 50,
-    "gas_fee": 0,
-    "total": 50,
-    "currency": "USDT",
-    "payment_method": "usdt_ton",
-    "toman_price": 13211300,
-    "toman_price_text": "۱۳٬۲۱۱٬۳۰۰ تومان"
+  "premium": {
+    "single": {
+      "3m": 10.5,
+      "6m": 19.6,
+      "12m": 35
+    },
+    "four": {
+      "3m": 10.5,
+      "6m": 19.6,
+      "12m": 35
+    }
   }
-]
+}
