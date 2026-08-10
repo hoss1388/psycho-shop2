@@ -59,7 +59,9 @@ const premiumItems = fragmentData.filter(
     x.product_type === "premium" &&
     x.currency === "TON"
 );
-
+console.log("========== PREMIUM RAW DATA ==========");
+console.log(JSON.stringify(premiumItems, null, 2));
+console.log("======================================");
 premiumItems.forEach(item => {
 
   const name = String(item.item_name || "").toLowerCase();
