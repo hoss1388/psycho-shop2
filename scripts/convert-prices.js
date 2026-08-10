@@ -5,122 +5,148 @@ const pricesFile = "./api/prices.json";
 const tonPrice = Number(process.env.TON_PRICE || 0);
 
 if (!tonPrice) {
-  console.error("TON price is missing");
-  process.exit(1);
+    console.error("TON price is missing");
+    process.exit(1);
 }
 
+
+// =====================================
+// FRAGMENT STARS DATA
+// =====================================
+
 const fragmentData = JSON.parse(
-  fs.readFileSync(pricesFile, "utf8")
+    fs.readFileSync(pricesFile, "utf8")
 );
 
+
+// =====================================
+// FINAL OUTPUT
+// =====================================
+
 const output = {
-  tonToToman: tonPrice,
+    tonToToman: tonPrice,
 
-  // =========================
-  // STARS — دست نخورده
-  // =========================
-  stars: {
-    tonPerStar: 0
-  },
+    stars: {
+        tonPerStar: 0
+    },
 
-  // =========================
-  // PREMIUM
-  // =========================
-  premium: {
-    single: {},
-    four: {}
-  }
+    premium: {
+        single: {},
+        four: {}
+    }
 };
 
 
-// =========================
+// =====================================
 // STARS
-// =========================
+// =====================================
+// این قسمت را دست نمی‌زنیم
+// =====================================
 
 const stars50 = fragmentData.find(
-  x =>
-    x.product_type === "stars" &&
-    x.item_name.includes("50") &&
-    x.currency === "TON"
+    x =>
+        x.product_type === "stars" &&
+        x.item_name.includes("50") &&
+        x.currency === "TON"
 );
 
 if (stars50) {
-  output.stars.tonPerStar =
-    Number(stars50.price) / 50;
+
+    output.stars.tonPerStar =
+        stars50.price / 50;
+
 }
 
 
-// =========================
-// PREMIUM
-// =========================
+// =====================================
+// PREMIUM - LIVE PRICES
+// =====================================
 
-const premiumItems = fragmentData.filter(
-  x =>
-    x.product_type === "premium" &&
-    x.currency === "TON"
-);
-console.log("========== PREMIUM RAW DATA ==========");
-console.log(JSON.stringify(premiumItems, null, 2));
-console.log("======================================");
-premiumItems.forEach(item => {
+function getPremiumPrice(file) {
 
-  const name = String(item.item_name || "").toLowerCase();
+    const data = JSON.parse(
+        fs.readFileSync(file, "utf8")
+    );
 
-  let plan = null;
+    if (!data || typeof data.price !== "number") {
 
-  // سه ماهه
-  if (
-    name.includes("3 month") ||
-    name.includes("3month") ||
-    name.includes("3 months") ||
-    name.includes("3m")
-  ) {
-    plan = "3m";
-  }
+        console.error(
+            "Invalid Premium response:",
+            data
+        );
 
-  // شش ماهه
-  else if (
-    name.includes("6 month") ||
-    name.includes("6month") ||
-    name.includes("6 months") ||
-    name.includes("6m")
-  ) {
-    plan = "6m";
-  }
+        process.exit(1);
+    }
 
-  // دوازده ماهه
-  else if (
-    name.includes("12 month") ||
-    name.includes("12month") ||
-    name.includes("12 months") ||
-    name.includes("12m") ||
-    name.includes("1 year") ||
-    name.includes("1year")
-  ) {
-    plan = "12m";
-  }
-
-  if (!plan) return;
-
-  const price = Number(item.price);
-
-  if (!price || price <= 0) return;
-
-  // قیمت خام Fragment
-  output.premium.single[plan] = price;
-  output.premium.four[plan] = price;
-});
+    return data.price;
+}
 
 
-// =========================
+const premium3 =
+    getPremiumPrice("./api/premium-3.json");
+
+const premium6 =
+    getPremiumPrice("./api/premium-6.json");
+
+const premium12 =
+    getPremiumPrice("./api/premium-12.json");
+
+
+// =====================================
+// SINGLE PREMIUM
+// =====================================
+
+output.premium.single["3m"] = premium3;
+
+output.premium.single["6m"] = premium6;
+
+output.premium.single["12m"] = premium12;
+
+
+// =====================================
+// FOUR BOOST
+// =====================================
+// قیمت خام Fragment همان قیمت Premium است
+// سود نهایی در pricing.js محاسبه می‌شود
+// =====================================
+
+output.premium.four["3m"] = premium3;
+
+output.premium.four["6m"] = premium6;
+
+output.premium.four["12m"] = premium12;
+
+
+// =====================================
 // SAVE
-// =========================
+// =====================================
 
 fs.writeFileSync(
-  pricesFile,
-  JSON.stringify(output, null, 2),
-  "utf8"
+    pricesFile,
+    JSON.stringify(output, null, 2),
+    "utf8"
 );
 
+
 console.log("Prices converted successfully");
-console.log(JSON.stringify(output, null, 2));
+
+console.log("TON:", tonPrice);
+
+console.log("Stars TON/Star:",
+    output.stars.tonPerStar
+);
+
+console.log("Premium 3M:",
+    premium3,
+    "TON"
+);
+
+console.log("Premium 6M:",
+    premium6,
+    "TON"
+);
+
+console.log("Premium 12M:",
+    premium12,
+    "TON"
+);
