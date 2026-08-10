@@ -23,17 +23,10 @@ const fragmentData = JSON.parse(
 const output = {
   tonToToman: tonPrice,
 
-  // =========================
-  // STARS
-  // =========================
-  // به Stars دست نمی‌زنیم
   stars: {
     tonPerStar: 0
   },
 
-  // =========================
-  // PREMIUM
-  // =========================
   premium: {
     single: {},
     four: {}
@@ -43,7 +36,8 @@ const output = {
 
 // ======================================================
 // STARS
-// همان سیستم قبلی
+// ======================================================
+// این بخش را دست نمی‌زنیم
 // ======================================================
 
 const stars50 = fragmentData.find(
@@ -60,21 +54,23 @@ if (stars50) {
 
 // ======================================================
 // PREMIUM
-// گرفتن قیمت زنده از Fragment
 // ======================================================
 
 function getPremiumPrice(months) {
 
   const url =
-    `https://api.fragment-api.io/api/prices` +
+    "https://api.fragment-api.io/api/prices" +
     `?product_type=premium` +
     `&quantity=${months}` +
-    `&payment_method=ton` +
-    `&recipient=durov`;
+    `&recipient=durov` +
+    `&payment_method=ton`;
+
+  console.log("");
+  console.log("Requesting Premium:", months, "months");
 
   try {
 
-    const result = execFileSync(
+    const response = execFileSync(
       "curl",
       [
         "-fsS",
@@ -87,32 +83,27 @@ function getPremiumPrice(months) {
       }
     );
 
-    const data = JSON.parse(result);
+    console.log("Fragment response:");
+    console.log(response);
 
-    if (!data || typeof data.total !== "number") {
+    const data = JSON.parse(response);
+
+    if (typeof data.total !== "number") {
       console.error(
-        `Invalid Premium response for ${months} months:`,
+        "Invalid Premium response:",
         data
       );
-
       process.exit(1);
     }
 
-    console.log(
-      `Premium ${months} months:`,
-      `price=${data.price}`,
-      `gas=${data.gas_fee}`,
-      `total=${data.total}`,
-      data.currency
-    );
-
-    // total همان مبلغ نهایی پرداختی است
     return data.total;
 
   } catch (error) {
 
     console.error(
-      `Failed to get Premium price for ${months} months`
+      "Failed to get Premium price for",
+      months,
+      "months"
     );
 
     console.error(error.message);
@@ -123,7 +114,7 @@ function getPremiumPrice(months) {
 
 
 // ======================================================
-// گرفتن هر سه Premium
+// GET LIVE PREMIUM PRICES
 // ======================================================
 
 const premium3m = getPremiumPrice(3);
@@ -132,8 +123,7 @@ const premium12m = getPremiumPrice(12);
 
 
 // ======================================================
-// ذخیره قیمت خام Fragment
-// سود بعداً در pricing.js اضافه می‌شود
+// SAVE RAW FRAGMENT PRICES
 // ======================================================
 
 output.premium.single["3m"] = premium3m;
@@ -146,36 +136,21 @@ output.premium.four["12m"] = premium12m;
 
 
 // ======================================================
-// نمایش برای بررسی
+// DEBUG
 // ======================================================
 
 console.log("");
 console.log("===== FINAL PREMIUM PRICES =====");
 
-console.log(
-  "3 months:",
-  output.premium.single["3m"],
-  "TON"
-);
-
-console.log(
-  "6 months:",
-  output.premium.single["6m"],
-  "TON"
-);
-
-console.log(
-  "12 months:",
-  output.premium.single["12m"],
-  "TON"
-);
+console.log("3m:", premium3m, "TON");
+console.log("6m:", premium6m, "TON");
+console.log("12m:", premium12m, "TON");
 
 console.log("===============================");
-console.log("");
 
 
 // ======================================================
-// ذخیره prices.json
+// SAVE
 // ======================================================
 
 fs.writeFileSync(
