@@ -23,6 +23,34 @@ jobs:
           https://api.fragment-api.io/api/prices/list \
           -o api/prices.json
 
+      # ===== DEBUG PREMIUM PRICES =====
+      - name: Debug Fragment Premium Prices
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+
+          const data = JSON.parse(
+            fs.readFileSync("api/prices.json", "utf8")
+          );
+
+          console.log("===== FRAGMENT PREMIUM DATA =====");
+
+          data
+            .filter(x => x.product_type === "premium")
+            .forEach(x => {
+              console.log(
+                JSON.stringify({
+                  product_type: x.product_type,
+                  item_name: x.item_name,
+                  price: x.price,
+                  currency: x.currency
+                })
+              );
+            });
+
+          console.log("===== END PREMIUM DATA =====");
+          NODE
+
       - name: Get TON price from Bitpin
         run: |
           RESPONSE=$(curl -L -s "https://api.bitpin.ir/v1/mkt/markets/")
