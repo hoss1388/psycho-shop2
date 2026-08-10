@@ -17,7 +17,7 @@ const output = {
   tonToToman: tonPrice,
 
   // =========================
-  // STARS — دست نزن
+  // STARS — دست نخورده
   // =========================
   stars: {
     tonPerStar: 0
@@ -33,9 +33,9 @@ const output = {
 };
 
 
-// ======================================================
+// =========================
 // STARS
-// ======================================================
+// =========================
 
 const stars50 = fragmentData.find(
   x =>
@@ -46,13 +46,13 @@ const stars50 = fragmentData.find(
 
 if (stars50) {
   output.stars.tonPerStar =
-    stars50.price / 50;
+    Number(stars50.price) / 50;
 }
 
 
-// ======================================================
+// =========================
 // PREMIUM
-// ======================================================
+// =========================
 
 const premiumItems = fragmentData.filter(
   x =>
@@ -62,66 +62,57 @@ const premiumItems = fragmentData.filter(
 
 premiumItems.forEach(item => {
 
-  const name = String(item.item_name).toLowerCase();
+  const name = String(item.item_name || "").toLowerCase();
 
   let plan = null;
 
-  // 3 months
+  // سه ماهه
   if (
+    name.includes("3 month") ||
+    name.includes("3month") ||
     name.includes("3 months") ||
-    name.includes("3 month")
+    name.includes("3m")
   ) {
     plan = "3m";
   }
 
-  // 6 months
+  // شش ماهه
   else if (
+    name.includes("6 month") ||
+    name.includes("6month") ||
     name.includes("6 months") ||
-    name.includes("6 month")
+    name.includes("6m")
   ) {
     plan = "6m";
   }
 
-  // 12 months / 1 year
+  // دوازده ماهه
   else if (
-    name.includes("12 months") ||
     name.includes("12 month") ||
-    name.includes("1 year")
+    name.includes("12month") ||
+    name.includes("12 months") ||
+    name.includes("12m") ||
+    name.includes("1 year") ||
+    name.includes("1year")
   ) {
     plan = "12m";
   }
 
-  if (!plan) {
-    console.log("Premium plan not recognized:", item.item_name);
-    return;
-  }
+  if (!plan) return;
 
-  console.log(
-    `Fragment Premium: ${item.item_name} = ${item.price} TON`
-  );
+  const price = Number(item.price);
 
-  // قیمت واقعی Fragment
-  output.premium.single[plan] = item.price;
+  if (!price || price <= 0) return;
 
-  // Four Boost فعلاً همان قیمت خام Fragment
-  // تفاوت سود در pricing.js اعمال می‌شود
-  output.premium.four[plan] = item.price;
+  // قیمت خام Fragment
+  output.premium.single[plan] = price;
+  output.premium.four[plan] = price;
 });
 
 
-// ======================================================
-// CHECK
-// ======================================================
-
-console.log(
-  "Premium prices:",
-  JSON.stringify(output.premium, null, 2)
-);
-
-
-// ======================================================
+// =========================
 // SAVE
-// ======================================================
+// =========================
 
 fs.writeFileSync(
   pricesFile,
@@ -130,3 +121,4 @@ fs.writeFileSync(
 );
 
 console.log("Prices converted successfully");
+console.log(JSON.stringify(output, null, 2));
