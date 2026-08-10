@@ -10,60 +10,86 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
+      # ==============================
+      # CHECKOUT
+      # ==============================
+      - name: Checkout
+        uses: actions/checkout@v5
+
+
+      # ==============================
+      # GET STARS PRICES
+      # ==============================
       - name: Get prices from Fragment API
         env:
           API_KEY: ${{ secrets.FRAGMENT_API_KEY }}
         run: |
           mkdir -p api
 
-          curl -H "X-API-Key: $API_KEY" \
-          https://api.fragment-api.io/api/prices/list \
-          -o api/prices.json
+          curl -L -s \
+            -H "X-API-Key: $API_KEY" \
+            "https://api.fragment-api.io/api/prices/list" \
+            -o api/prices.json
 
-      # ===== DEBUG PREMIUM PRICES =====
-      - name: Debug Fragment Premium Prices
+
+      # ==============================
+      # GET LIVE PREMIUM PRICES
+      # ==============================
+      - name: Get live Premium prices
+        env:
+          API_KEY: ${{ secrets.FRAGMENT_API_KEY }}
         run: |
-          node <<'NODE'
-          const fs = require("fs");
 
-          const data = JSON.parse(
-            fs.readFileSync("api/prices.json", "utf8")
-          );
+          echo "Getting Premium 3 Month..."
 
-          console.log("===== FRAGMENT PREMIUM DATA =====");
+          curl -L -s \
+            -H "X-API-Key: $API_KEY" \
+            "https://api.fragment-api.io/api/prices?product_type=premium&quantity=3&payment_method=ton" \
+            -o api/premium-3.json
 
-          data
-            .filter(x => x.product_type === "premium")
-            .forEach(x => {
-              console.log(
-                JSON.stringify({
-                  product_type: x.product_type,
-                  item_name: x.item_name,
-                  price: x.price,
-                  currency: x.currency
-                })
-              );
-            });
 
-          console.log("===== END PREMIUM DATA =====");
-          NODE
+          echo "Getting Premium 6 Month..."
 
+          curl -L -s \
+            -H "X-API-Key: $API_KEY" \
+            "https://api.fragment-api.io/api/prices?product_type=premium&quantity=6&payment_method=ton" \
+            -o api/premium-6.json
+
+
+          echo "Getting Premium 12 Month..."
+
+          curl -L -s \
+            -H "X-API-Key: $API_KEY" \
+            "https://api.fragment-api.io/api/prices?product_type=premium&quantity=12&payment_method=ton" \
+            -o api/premium-12.json
+
+
+      # ==============================
+      # GET TON PRICE
+      # ==============================
       - name: Get TON price from Bitpin
         run: |
+
           RESPONSE=$(curl -L -s "https://api.bitpin.ir/v1/mkt/markets/")
 
           TON_PRICE=$(echo "$RESPONSE" | node -e "
           let data='';
-          process.stdin.on('data',c=>data+=c);
-          process.stdin.on('end',()=>{
-            let json=JSON.parse(data);
 
-            let market=json.results.find(
+          process.stdin.on('data', c => data += c);
+
+          process.stdin.on('end', () => {
+
+            let json = JSON.parse(data);
+
+            let market = json.results.find(
               x => x.code === 'GRAM_IRT'
             );
+
+            if (!market) {
+              console.error('TON market not found');
+              process.exit(1);
+            }
 
             console.log(market.price);
           });
@@ -71,13 +97,25 @@ jobs:
 
           echo "TON_PRICE=$TON_PRICE" >> $GITHUB_ENV
 
+
+      # ==============================
+      # CONVERT PRICES
+      # ==============================
       - name: Convert prices to Toman
+        env:
+          API_KEY: ${{ secrets.FRAGMENT_API_KEY }}
         run: |
           node scripts/convert-prices.js
 
+
+      # ==============================
+      # COMMIT
+      # ==============================
       - name: Commit updated prices
         run: |
+
           git config --global user.name "github-actions"
+
           git config --global user.email "github-actions@github.com"
 
           git add api/prices.json
