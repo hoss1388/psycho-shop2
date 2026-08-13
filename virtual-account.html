@@ -1131,39 +1131,29 @@ countries[price].forEach(country=>{
 
 box.innerHTML += `
 
+<div class="country-card"
+     data-price="${price}000"
+     data-unit="1">
 
-<div class="country-card">
+    <div class="country-flag">
+        ${country[0]}
+    </div>
 
+    <h3>
+        اکانت مجازی ${country[1]}
+    </h3>
 
-<div class="country-flag">
-
-${country[0]}
-
-</div>
-
-
-<h3>
-
-${country[1]}
-
-</h3>
-
-
-
-<a href="${telegramLink}"
-target="_blank"
-class="btn btn-solid country-btn">
-
-استعلام قیمت و خرید
-
-</a>
-
+    <button
+        type="button"
+        class="btn btn-solid country-btn"
+        onclick="psychoAddFromCard(this)">
+        <i class="fa-solid fa-cart-plus"></i>
+        افزودن به سبد خرید
+    </button>
 
 </div>
-
 
 `;
-
 
 });
 
