@@ -272,9 +272,9 @@ window.openProductModal = function(type, callback) {
         input.placeholder = "مثلاً instagram.com/example";
     }
     else if (type === "channel") {
-        title.textContent = "لینک پیج اینستاگرام خود را وارد کنید";
-        input.placeholder = "مثلاً t.me/example";
-    }
+    title.textContent = "لینک چنل برای Boost را وارد کنید";
+    input.placeholder = "مثلاً https://t.me/example";
+}
     else if (type === "post") {
         title.textContent = "لینک پست را وارد کنید";
         input.placeholder = "لینک پست";
