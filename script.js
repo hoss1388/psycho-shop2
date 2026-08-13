@@ -124,15 +124,54 @@ extraInfo: typeof extraInfo === "object"
         }
 
         var nameEl = card.querySelector("h3");
-        var name = nameEl ? nameEl.textContent.replace(/\s+/g, " ").trim() : "محصول";
-    var requestType = card.getAttribute("data-request") || "";
-        var id = name + "|" + price + "|" + unit;
+var name = nameEl
+    ? nameEl.textContent.replace(/\s+/g, " ").trim()
+    : "محصول";
+
+var requestType = card.getAttribute("data-request") || "";
+
+// ===== Boost =====
+if (card.hasAttribute("data-boost")) {
+    name = "Boost " + name;
+    requestType = "channel";
+}
+
+// شناسه پایه محصول
+var baseId = name + "|" + price + "|" + unit;
+
 if (requestType === "channel" || requestType === "gift") {
-    openProductModal(requestType, function(value){
-        window.psychoAddToCart(id, name, price, unit, qty, "", value);
+
+    openProductModal(requestType, function(value) {
+
+        // برای اینکه سفارش‌های Boost با لینک‌های مختلف
+        // با هم یکی نشوند
+        var id = baseId + "|" + value;
+
+        window.psychoAddToCart(
+            id,
+            name,
+            price,
+            unit,
+            qty,
+            "",
+            value
+        );
+
     });
+
     return;
 }
+
+var id = baseId;
+
+window.psychoAddToCart(
+    id,
+    name,
+    price,
+    unit,
+    qty,
+    ""
+);
         window.psychoAddToCart(id, name, price, unit, qty, "");
 
         var resultEl = card.querySelector(".calc-result");
